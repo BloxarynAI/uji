@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter: Goblet of Fire - Dunia Sihir Interaktif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=MedievalSharp&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #42a5f5;
+            --secondary: #0d47a1;
+            --accent: #ffc400;
+            --dark: #1a237e;
+            --light: #ffffff;
+            --text: #333333;
+            --background: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+        
+        .dark-theme {
+            --primary: #bb86fc;
+            --secondary: #3700b3;
+            --accent: #03dac6;
+            --dark: #121212;
+            --light: #1e1e1e;
+            --text: #e0e0e0;
+            --background: #121212;
+            --card-bg: rgba(30, 30, 30, 0.9);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Cinzel', serif;
+            background-image: url('https://image.tmdb.org/t/p/original/aeW0r6mymCdkwlDcvm4sFqD22Vi.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            animation: headerGlow 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes headerGlow {
+            0% {
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                box-shadow: 0 10px 35px rgba(66, 165, 245, 0.4);
+            }
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3wjuJJqj3SvLY0Jz8yaNZe9pePuW9VM93JydwO8-iR3hmfUrSD4NGteA&s=10');
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            color: var(--accent);
+            font-weight: 900;
+            letter-spacing: 2px;
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes titlePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+        
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            font-family: 'MedievalSharp', cursive;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .story-section {
+            flex: 2;
+            min-width: 300px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border-left: 5px solid var(--primary);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .story-section:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .story-section h2 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .story-section h3 {
+            color: var(--primary);
+            margin: 25px 0 15px;
+            font-size: 1.5rem;
+        }
+        
+        .story-section p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+        
+        .dialogue {
+            background: rgba(66, 165, 245, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-style: italic;
+            border-radius: 0 8px 8px 0;
+            font-family: 'MedievalSharp', cursive;
+        }
+        
+        .character-section {
+            flex: 1;
+            min-width: 250px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-right: 5px solid var(--accent);
+            animation: fadeInRight 1s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .character-section h2 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .character-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .character-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .character-card:hover .character-image {
+            transform: scale(1.05);
+        }
+        
+        .character-info {
+            padding: 15px;
+        }
+        
+        .character-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .character-description {
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .character-detail-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+            font-family: 'Cinzel', serif;
+        }
+        
+        .character-detail-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.05);
+        }
+        
+        .character-detail-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .character-detail-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            animation: scaleIn 0.4s ease;
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .character-detail-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .character-detail-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+        
+        .character-detail-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .character-detail-body {
+            padding: 25px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .character-detail-info {
+            margin-bottom: 20px;
+        }
+        
+        .character-detail-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .character-detail-info p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        .spell-section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            border: 2px solid var(--primary);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .spell-input {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        #spellInput {
+            padding: 15px 25px;
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            font-size: 1.2rem;
+            background: var(--light);
+            color: var(--text);
+            font-family: 'MedievalSharp', cursive;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        #castSpell {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(66, 165, 245, 0.4);
+            font-family: 'Cinzel', serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .spell-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .spell-option {
+            padding: 12px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 1.1rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .spell-effect {
+            height: 300px;
+            background: rgba(13, 71, 161, 0.1);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 2px dashed var(--primary);
+        }
+        
+        .spell-animation {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+            font-family: 'MedievalSharp', cursive;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .spell-animation.active {
+            opacity: 1;
+        }
+        
+        .spell-icon {
+            font-size: 4rem;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        /* Animasi untuk setiap mantra */
+        .lumos-effect {
+            color: #fff9c4;
+            text-shadow: 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
+            background: rgba(0, 0, 0, 0.7);
+            animation: flicker 2s infinite alternate;
+        }
+        
+        .nox-effect {
+            color: #424242;
+            text-shadow: 0 0 15px #212121, 0 0 30px #212121;
+            background: rgba(0, 0, 0, 0.9);
+            animation: darkPulse 2s infinite;
+        }
+        
+        .expecto-patronum-effect {
+            color: #e3f2fd;
+            text-shadow: 0 0 15px #42a5f5, 0 0 30px #42a5f5;
+            background: rgba(0, 0, 0, 0.7);
+            animation: pulse 2s infinite, glowShift 3s infinite alternate;
+        }
+        
+        .expelliarmus-effect {
+            color: #ffcdd2;
+            text-shadow: 0 0 15px #f44336, 0 0 30px #f44336;
+            background: rgba(0, 0, 0, 0.7);
+            animation: disarming 1.5s, shockwave 2s infinite;
+        }
+        
+        .wingardium-leviosa-effect {
+            color: #c8e6c9;
+            text-shadow: 0 0 15px #4caf50, 0 0 30px #4caf50;
+            background: rgba(0, 0, 0, 0.7);
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        .riddikulus-effect {
+            color: #f8bbd0;
+            text-shadow: 0 0 15px #e91e63, 0 0 30px #e91e63;
+            background: rgba(0, 0, 0, 0.7);
+            animation: laugh 2s infinite, colorShift 4s infinite alternate;
+        }
+        
+        .accio-effect {
+            color: #d1c4e9;
+            text-shadow: 0 0 15px #7e57c2, 0 0 30px #7e57c2;
+            background: rgba(0, 0, 0, 0.7);
+            animation: summon 2s, pull 3s infinite;
+        }
+        
+        .stupefy-effect {
+            color: #ff5722;
+            text-shadow: 0 0 15px #ff7043, 0 0 30px #ff7043;
+            background: rgba(0, 0, 0, 0.7);
+            animation: stun 1s infinite;
+        }
+        
+        /* Animasi khusus */
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            25% { opacity: 0.8; transform: scale(1.05); }
+            50% { opacity: 0.9; transform: scale(0.95); }
+            75% { opacity: 0.7; transform: scale(1.02); }
+        }
+        
+        @keyframes darkPulse {
+            0%, 100% { background: rgba(0, 0, 0, 0.9); }
+            50% { background: rgba(30, 0, 0, 0.95); }
+        }
+        
+        @keyframes stun {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-25px) rotate(5deg); }
+            66% { transform: translateY(-15px) rotate(-5deg); }
+        }
+        
+        @keyframes disarming {
+            0% { transform: translateX(0) rotate(0); }
+            25% { transform: translateX(-30px) rotate(-10deg); }
+            50% { transform: translateX(30px) rotate(10deg); }
+            75% { transform: translateX(-15px) rotate(-5deg); }
+            100% { transform: translateX(0) rotate(0); }
+        }
+        
+        @keyframes shockwave {
+            0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(244, 67, 54, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+        }
+        
+        /* Elemen tambahan */
+        .wand-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            transition: all 0.5s ease;
+        }
+        
+        .wand {
+            font-size: 3rem;
+            color: #8B4513;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+            transform-origin: bottom center;
+            transition: all 0.3s ease;
+        }
+        
+        .wand.hidden {
+            opacity: 0;
+            transform: translateX(100px) rotate(45deg);
+        }
+        
+        .patronus-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .patronus {
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.7;
+            filter: drop-shadow(0 0 10px #42a5f5);
+            animation: patronusFloat 6s linear infinite;
+        }
+        
+        @keyframes patronusFloat {
+            0% {
+                transform: translateY(100px) translateX(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Slime Mochi Styles - Diperbaiki */
+        .slime-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .slime-mochi {
+            width: 120px;
+            height: 100px;
+            border-radius: 50% 50% 40% 40%;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: mochiBounce 3s infinite ease-in-out;
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.2),
+                inset 0 -15px 30px rgba(255, 255, 255, 0.5),
+                inset 0 15px 30px rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, 
+                rgba(66, 165, 245, 0.9) 0%, 
+                rgba(30, 136, 229, 0.8) 30%, 
+                rgba(21, 101, 192, 0.7) 70%, 
+                rgba(13, 71, 161, 0.6) 100%);
+        }
+        
+        .slime-mochi::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            width: 40px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            transform: rotate(-15deg);
+            animation: shine 4s infinite linear;
+            filter: blur(1px);
+        }
+        
+        .slime-mochi::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            width: 25px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transform: rotate(10deg);
+            animation: shine 4s infinite linear 0.5s;
+            filter: blur(1px);
+        }
+        
+        .slime-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .slime-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+            filter: blur(0.5px);
+        }
+        
+        .slime-dot:nth-child(1) {
+            top: 25%;
+            left: 30%;
+            animation-delay: 0s;
+        }
+        
+        .slime-dot:nth-child(2) {
+            top: 60%;
+            left: 65%;
+            animation-delay: 1s;
+        }
+        
+        .slime-dot:nth-child(3) {
+            top: 45%;
+            left: 50%;
+            animation-delay: 2s;
+        }
+        
+        @keyframes mochiBounce {
+            0%, 100% {
+                transform: translateY(0) scale(1, 1);
+            }
+            25% {
+                transform: translateY(-20px) scale(1.1, 0.9);
+            }
+            50% {
+                transform: translateY(0) scale(0.95, 1.05);
+            }
+            75% {
+                transform: translateY(-10px) scale(1.05, 0.95);
+            }
+        }
+        
+        @keyframes shine {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
+        .slime-hit {
+            animation: slimeHit 0.5s ease;
+        }
+        
+        @keyframes slimeHit {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        
+        .search-button {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--accent);
+            color: var(--dark);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            z-index: 100;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: rgba(13, 71, 161, 0.9);
+            border-radius: 15px;
+            margin-top: 40px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .spell-input {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            #spellInput {
+                width: 100%;
+            }
+            
+            .spell-effect {
+                height: 250px;
+            }
+            
+            .wand-container {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .slime-mochi {
+                width: 100px;
+                height: 80px;
+            }
+            
+            .character-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wand-container">
+        <div class="wand" id="wand">
+            <i class="material-icons">style</i>
+        </div>
+    </div>
+    
+    <div class="search-button" id="searchButton">
+        <i class="material-icons">search</i>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>Harry Potter: Piala Api</h1>
+            <p>Jelajahi dunia sihir dengan mantra interaktif dan animasi menakjubkan!</p>
+        </header>
+        
+        <div class="slime-container">
+            <div class="slime-mochi" data-spell="Stupefy">
+                <div class="slime-dots">
+                    <div class="slime-dot"></div>
+                    <div class="slime-dot"></div>
+                    <div class="slime-dot"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="story-section">
+                <h2>Kisah Lengkap Goblet of Fire</h2>
+                
+                <h3>Bagian 1: Mimpi Buruk di Privet Drive</h3>
+                <p>Kisah ini diawali bukan di dunia sihir yang penuh keajaiban, melainkan di rumah biasa milik keluarga Dursley yang sangat menjemukan. Namun, bagi Harry Potter, malam itu adalah awal dari mimpi buruk.</p>
+                <p>Dia terbangun mendadak, keringat dingin membasahi tubuhnya, dengan bekas luka di dahinya berdenyut nyeri seperti terbakar. Dalam mimpinya, dia bukanlah Harry. Dia adalah seorang pria tua bernama Frank Bryce, seorang tukang kebun.</p>
+                
+                <div class="dialogue">
+                    "Dia di sini, bukan, Wormtail?" desis suara itu, lebih dingin dari es. "Bukankah kau yang memanggilku ke tempat yang hina ini?"
+                </div>
+                
+                <p>Frank, yang ketakutan, tanpa sengaja menginjak lantai yang berderit.</p>
+                
+                <div class="dialogue">
+                    "Crucio!"
+                </div>
+                
+                <p>Sakit yang tak terbayangkan menghantam Harry—melalui tubuh Frank. Dia menjerit kesakitan, sebelum akhirnya melihat kilatan tongkat sihir hijau—Avada Kedavra—dan kemudian... kegelapan.</p>
+                <p>Harry terbangun, terengah-engah. Itu bukan sekadar mimpi. Itu nyata. Voldemort sedang bangkit.</p>
+                
+                <h3>Bagian 2: Piala Dunia dan Tanda Kegelapan</h3>
+                <p>Kekhawatiran Harry sejenak terlupakan saat keluarga Weasley menjemputnya untuk pergi ke Piala Dunia Quidditch. Suasana festival sangat meriah, dipenuhi penyihir dari berbagai penjuru. Mereka menyaksikan pertandingan spektakuler antara Irlandia dan Bulgaria, dengan Viktor Krum sebagai bintangnya.</p>
+                
+                <div class="dialogue">
+                    "Itu adalah Dark Mark!" teriak Mr. Weasley, namun suaranya hampir tenggelam oleh teriakan panik Hermione.<br>
+                    "Apa? Di mana?"<br>
+                    "Di sana!" seru Mr. Weasley, menunjuk ke langit di atas hutan.
+                </div>
+                
+                <p>Wajah-wajah para penyihir di sekitar mereka dipenuhi ketakutan murni. Itu adalah tanda yang mereka takuti selama bertahun-tahun, pertanda bahwa kegelapan telah kembali.</p>
+                
+                <h3>Bagian 3: Kedatangan Sekolah Asing dan Piala Api</h3>
+                <p>Kembali ke Hogwarts, suasana tegang akibat kemunculan Dark Mark segera berganti dengan kehebohan baru. Dua sekolah sihir lainnya akan datang untuk Turnamen Triwizard.</p>
+                
+                <div class="dialogue">
+                    "Tahun ini," seru Dumbledore, matanya berkelip-kelip, "Hogwarts memiliki kehormatan untuk menjadi tuan rumah... Turnamen Triwizard!"
+                </div>
+                
+                <p>Kekecewaan terlihat di wajah Harry, Ron, dan Hermione. Namun, peringatan terkuat justru datang dari guru Pertahanan Ilmu Hitam yang baru, Alastor "Mad-Eye" Moody.</p>
+                
+                <div class="dialogue">
+                    "Kalian semua berpikir ini adalah permainan?!" geramnya, mata ajaibnya menatap tajam ke kerumunan siswa. "Kematian! Itulah yang ada di ujung Turnamen Triwizard! Aku telah melihat banyak penyihir hebat tewas karenanya. Jangan remehkan ini!"
+                </div>
+                
+                <h3>Bagian 4: Empat Nama dari Piala Api</h3>
+                <p>Malam Pemilihan pun tiba. Piala Api, sebuah piala kayu tua yang menyala dengan api biru pucat, ditempatkan di tengah Aula. Satu per satu, api itu menyala-nyala dan menyemburkan nama para juara.</p>
+                
+                <div class="dialogue">
+                    "Harry Potter."
+                </div>
+                
+                <div class="dialogue">
+                    "TIDAK!" teriak Harry, merasakan ratusan pasang mata menatapnya. "Aku tidak mendaftar!"
+                </div>
+                
+                <div class="dialogue">
+                    "Kau memasukkan namamu ke dalam Piala itu!" hardik Ron malam itu di tangga menuju asrama Gryffindor, wajahnya merah padam.<br>
+                    "Aku tidak melakukannya!" balas Harry, merasa sangat kesal dan dikhianati. "Kau tahu aku tidak ingin jadi bagian dari omong kosong itu!"<br>
+                    "Aku lihat kau tidak memberitahuku caranya," sergah Ron, suaranya penuh tuduhan. "Kau bilang 'lebih baik batalkan pertemanan kita', kan? Takut aku akan merebut sorotan darimu?"
+                </div>
+                
+                <p>Kata-kata Ron seperti pisau di hati Harry. Persahabatan mereka retak, dan Harry harus menghadapi kebencian dari hampir seluruh sekolah, yang mengira dia adalah seorang pembohong yang haus perhatian.</p>
+            </div>
+            
+            <div class="character-section">
+                <h2>Tokoh Utama</h2>
+                <div class="character-grid">
+                    <div class="character-card" data-character="harry">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBsSwcVVOYgfrnfQTLs29GD9xTgw56IrqDzEwGwToMHw&s=10" alt="Harry Potter" class="character-image">
+                        <div class="character-info">
+                            <div class="character-name">
+                                <i class="material-icons">person</i>
+                                Harry Potter
+                            </div>
+                            <p class="character-description">Juara keempat yang tidak diinginkan dalam Turnamen Triwizard</p>
+                            <div class="character-detail-btn">Detail Tokoh</div>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card" data-character="ron">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCGu9tJBT57rYqt1R_R9sOpZXayKOZ-k6bmclaeP1LHA&s=10" alt="Ron Weasley" class="character-image">
+                        <div class="character-info">
+                            <div class="character-name">
+                                <i class="material-icons">group</i>
+                                Ron Weasley
+                            </div>
+                            <p class="character-description">Sahabat Harry yang sempat cemburu dengan keterpilihan Harry</p>
+                            <div class="character-detail-btn">Detail Tokoh</div>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card" data-character="hermione">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_HlNq0xx_fvNlODBnCj_X_vs9LBYYMKBsAjXYEPrTrw&s=10" alt="Hermione Granger" class="character-image">
+                        <div class="character-info">
+                            <div class="character-name">
+                                <i class="material-icons">school</i>
+                                Hermione Granger
+                            </div>
+                            <p class="character-description">Sahabat Harry yang membantu persiapan tugas-tugas turnamen</p>
+                            <div class="character-detail-btn">Detail Tokoh</div>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card" data-character="cedric">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyxV7OSDIVPxE3ED4OkqOQINcCTODcYkjbqnkJUW3Clg&s=10" alt="Cedric Diggory" class="character-image">
+                        <div class="character-info">
+                            <div class="character-name">
+                                <i class="material-icons">favorite</i>
+                                Cedric Diggory
+                            </div>
+                            <p class="character-description">Juara Hogwarts asli yang tewas di tangan Voldemort</p>
+                            <div class="character-detail-btn">Detail Tokoh</div>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card" data-character="voldemort">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREa7NbDWd8ljmfiHV35wbdwutdx48kJJoVvOjalG8bcA&s=10" alt="Lord Voldemort" class="character-image">
+                        <div class="character-info">
+                            <div class="character-name">
+                                <i class="material-icons">whatshot</i>
+                                Lord Voldemort
+                            </div>
+                            <p class="character-description">Penjahat legendaris yang kembali mendapatkan wujud fisik</p>
+                            <div class="character-detail-btn">Detail Tokoh</div>
+                        </div>
+                    </div>
+                    
+                    <div class="character-card" data-character="moody">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLq0KMhy5Pa5hLOVWkPoUaGgfufeMtjPJMlit1nTA7bA&s=10" alt="Alastor Moody" class="character-image">
+                        <div class="character-info">
+                            <div class="character-name">
+                                <i class="material-icons">visibility</i>
+                                Alastor "Mad-Eye" Moody
+                            </div>
+                            <p class="character-description">Guru Pertahanan Ilmu Hitam yang ternyata adalah Barty Crouch Jr. yang menyamar</p>
+                            <div class="character-detail-btn">Detail Tokoh</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="spell-section">
+            <h2>Praktik Mantra Sihir</h2>
+            
+            <div class="spell-input">
+                <input type="text" id="spellInput" placeholder="Ketik mantra sihir...">
+                <button id="castSpell">
+                    <i class="material-icons">auto_fix_high</i>
+                    Lancarkan!
+                </button>
+            </div>
+            
+            <div class="spell-suggestions">
+                <div class="spell-option" data-spell="Lumos">Lumos</div>
+                <div class="spell-option" data-spell="Lumos Maxima">Lumos Maxima</div>
+                <div class="spell-option" data-spell="Nox">Nox</div>
+                <div class="spell-option" data-spell="Expecto Patronum">Expecto Patronum</div>
+                <div class="spell-option" data-spell="Expelliarmus">Expelliarmus</div>
+                <div class="spell-option" data-spell="Stupefy">Stupefy</div>
+                <div class="spell-option" data-spell="Wingardium Leviosa">Wingardium Leviosa</div>
+                <div class="spell-option" data-spell="Riddikulus">Riddikulus</div>
+                <div class="spell-option" data-spell="Accio">Accio</div>
+                <div class="spell-option" data-spell="Protego">Protego</div>
+            </div>
+            
+            <div class="spell-effect">
+                <div class="spell-animation" id="spellAnimation">
+                    <div class="spell-icon" id="spellIcon"></div>
+                    <div id="spellText">Pilih mantra untuk melihat efeknya!</div>
+                    <div id="spellDescription"></div>
+                </div>
+                <div class="patronus-container" id="patronusContainer"></div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Website Harry Potter: Goblet of Fire - Dunia Sihir Interaktif</p>
+            <p>Gunakan mantra Lumos/Lumos Maxima untuk tema terang dan Nox untuk tema gelap</p>
+        </footer>
+    </div>
+
+    <!-- Modal Detail Tokoh -->
+    <div class="character-detail-modal" id="characterModal">
+        <div class="character-detail-content">
+            <div class="close-modal" id="closeModal">
+                <i class="material-icons">close</i>
+            </div>
+            <div class="character-detail-header">
+                <img src="" alt="Character Image" class="character-detail-image" id="detailImage">
+                <div class="character-detail-name" id="detailName"></div>
+            </div>
+            <div class="character-detail-body">
+                <div class="character-detail-info">
+                    <h3>Deskripsi Tokoh</h3>
+                    <p id="detailDescription"></p>
+                </div>
+                <div class="character-detail-info">
+                    <h3>Peran dalam Cerita</h3>
+                    <p id="detailRole"></p>
+                </div>
+                <div class="character-detail-info">
+                    <h3>Fakta Menarik</h3>
+                    <p id="detailFacts"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Element references
+        const spellInput = document.getElementById('spellInput');
+        const castSpellButton = document.getElementById('castSpell');
+        const spellAnimation = document.getElementById('spellAnimation');
+        const spellIcon = document.getElementById('spellIcon');
+        const spellText = document.getElementById('spellText');
+        const spellDescription = document.getElementById('spellDescription');
+        const spellOptions = document.querySelectorAll('.spell-option');
+        const slimeMochi = document.querySelector('.slime-mochi');
+        const wand = document.getElementById('wand');
+        const searchButton = document.getElementById('searchButton');
+        const patronusContainer = document.getElementById('patronusContainer');
+        const body = document.body;
+        
+        // Character modal elements
+        const characterModal = document.getElementById('characterModal');
+        const closeModal = document.getElementById('closeModal');
+        const detailImage = document.getElementById('detailImage');
+        const detailName = document.getElementById('detailName');
+        const detailDescription = document.getElementById('detailDescription');
+        const detailRole = document.getElementById('detailRole');
+        const detailFacts = document.getElementById('detailFacts');
+        const characterCards = document.querySelectorAll('.character-card');
+        
+        // Data karakter
+        const characterData = {
+            'harry': {
+                name: 'Harry Potter',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBsSwcVVOYgfrnfQTLs29GD9xTgw56IrqDzEwGwToMHw&s=10',
+                description: 'Harry James Potter adalah seorang penyihir berdarah-campuran, anak satu-satunya dari James dan Lily Potter, salah satu siswa paling terkenal di Sekolah Sihir Hogwarts.',
+                role: 'Sebagai protagonis utama, Harry terpilih sebagai Juara keempat Turnamen Triwizard meskipun usianya masih di bawah batas minimum. Dia harus menghadapi tantangan berbahaya dan konspirasi yang mengarah pada kebangkitan Lord Voldemort.',
+                facts: 'Harry adalah pemilik sah Tongkat Elder, meskipun dia tidak mengetahuinya. Dia juga satu-satunya yang diketahui selamat dari Kutukan Avada Kedavra, memberinya gelar "The Boy Who Lived".'
+            },
+            'ron': {
+                name: 'Ron Weasley',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCGu9tJBT57rYqt1R_R9sOpZXayKOZ-k6bmclaeP1LHA&s=10',
+                description: 'Ronald Bilius Weasley adalah anak keenam dari tujuh bersaudara keluarga Weasley, seorang penyihir berdarah-murni dan sahabat terbaik Harry Potter.',
+                role: 'Dalam Goblet of Fire, Ron sempat cemburu dengan keterpilihan Harry sebagai Juara keempat, menyebabkan perselisihan sementara dalam persahabatan mereka. Dia akhirnya mendukung Harry setelah menyadari bahwa Harry tidak memasukkan namanya sendiri ke dalam Piala Api.',
+                facts: 'Ron adalah ahli catur yang berbakat, sebuah keterampilan yang ditunjukkan dalam film pertama. Dia juga memiliki fobia laba-laba (arachnophobia) akibat insiden di masa kecilnya.'
+            },
+            'hermione': {
+                name: 'Hermione Granger',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_HlNq0xx_fvNlODBnCj_X_vs9LBYYMKBsAjXYEPrTrw&s=10',
+                description: 'Hermione Jean Granger adalah seorang penyihir berdarah-Muggle yang lahir dari orang tua Muggle. Dia adalah siswa terpintar di angkatannya di Hogwarts.',
+                role: 'Hermione membantu Harry mempersiapkan diri untuk tugas-tugas Turnamen Triwizard, termasuk mengajarinya mantra Panggilan (Summoning Charm) untuk tugas pertama. Dia juga mendirikan SPEW (Society for the Promotion of Elfish Welfare).',
+                facts: 'Hermione adalah satu-satunya karakter yang berhasil melemparkan Kutukan Cruciatus dengan sempurna. Dia juga menggunakan Time-Turner di tahun ketiganya untuk menghadiri lebih banyak kelas.'
+            },
+            'cedric': {
+                name: 'Cedric Diggory',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyxV7OSDIVPxE3ED4OkqOQINcCTODcYkjbqnkJUW3Clg&s=10',
+                description: 'Cedric Diggory adalah seorang penyihir berdarah-murni yang menjadi murid di Hogwarts dan ditempatkan di asrama Hufflepuff. Dia adalah Kapten dan Pencari tim Quidditch Hufflepuff.',
+                role: 'Cedric adalah Juara Hogwarts yang sah dalam Turnamen Triwizard. Dia dikenal karena sifatnya yang adil dan jujur, bahkan memberi tahu Harry tentang tugas pertama. Dia tewas di tangan Peter Pettigrew atas perintah Lord Voldemort.',
+                facts: 'Kematian Cedric adalah titik balik penting dalam seri, menandai kembalinya Voldemort secara terbuka. Ayahnya, Amos Diggory, bekerja di Kementerian Sihir.'
+            },
+            'voldemort': {
+                name: 'Lord Voldemort',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREa7NbDWd8ljmfiHV35wbdwutdx48kJJoVvOjalG8bcA&s=10',
+                description: 'Tom Marvolo Riddle, yang kemudian dikenal sebagai Lord Voldemort, adalah salah satu penyihir paling kuat dan berbahaya dalam sejarah sihir. Dia adalah keturunan langsung dari Salazar Slytherin.',
+                role: 'Dalam Goblet of Fire, Voldemort berhasil mendapatkan kembali wujud fisiknya melalui ritual yang menggunakan darah Harry, tulang ayahnya, dan daging pelayan. Ini menandai kembalinya dia ke kekuatan penuh dan awal Perang Sihir Kedua.',
+                facts: 'Voldemort adalah salah satu dari sedikit penyihir yang bisa menerbangkan diri tanpa sapu. Namanya adalah anagram dari "Tom Marvolo Riddle" menjadi "I am Lord Voldemort".'
+            },
+            'moody': {
+                name: 'Alastor "Mad-Eye" Moody',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLq0KMhy5Pa5hLOVWkPoUaGgfufeMtjPJMlit1nTA7bA&s=10',
+                description: 'Alastor "Mad-Eye" Moody adalah seorang Auror legendaris yang dikenal karena menangkap banyak Pelahap Maut. Dia memiliki mata ajaib yang bisa melihat melalui hampir segala hal.',
+                role: 'Dalam cerita, Moody sebenarnya adalah Barty Crouch Jr. yang menyamar menggunakan Ramuan Polijus. Dia memanipulasi Turnamen Triwizard untuk memastikan Harry memenangkan Piala Triwizard, yang ternyata adalah Portkey yang membawanya ke Voldemort.',
+                facts: 'Motto Moody yang terkenal adalah "Kewaspadaan Konstan!". Mata ajaibnya bisa melihat melalui jubah gaib dan dinding, serta mendeteksi sihir gelap.'
+            }
+        };
+        
+        // Daftar hewan patronus
+        const patronusAnimals = [
+            '🦌', '🦅', '🐇', '🐕', '🐈', '🐬', '🦢', '🐺', 
+            '🐴', '🦁', '🐯', '🐻', '🦊', '🐭', '🦉', '🐍'
+        ];
+        
+        // Spell effects mapping
+        const spellEffects = {
+            'lumos': {
+                text: 'LUMOS',
+                icon: '<i class="material-icons">wb_incandescent</i>',
+                effect: 'lumos-effect',
+                description: 'Menciptakan cahaya di ujung tongkat sihir',
+                action: () => enableLightTheme()
+            },
+            'lumos maxima': {
+                text: 'LUMOS MAXIMA',
+                icon: '<i class="material-icons">wb_sunny</i>',
+                effect: 'lumos-effect',
+                description: 'Menciptakan cahaya yang sangat terang',
+                action: () => enableLightTheme()
+            },
+            'nox': {
+                text: 'NOX',
+                icon: '<i class="material-icons">nights_stay</i>',
+                effect: 'nox-effect',
+                description: 'Mematikan cahaya dari tongkat sihir',
+                action: () => enableDarkTheme()
+            },
+            'expecto patronum': {
+                text: 'EXPECTO PATRONUM',
+                icon: '<i class="material-icons">pets</i>',
+                effect: 'expecto-patronum-effect',
+                description: 'Mengusir Dementor dengan memanggil Patronus',
+                action: () => createPatronus()
+            },
+            'expelliarmus': {
+                text: 'EXPELLIARMUS',
+                icon: '<i class="material-icons">flash_on</i>',
+                effect: 'expelliarmus-effect',
+                description: 'Lepaskan senjata! Mantra pelucutan senjata',
+                action: () => disarmWand()
+            },
+            'wingardium leviosa': {
+                text: 'WINGARDIUM LEVIOSA',
+                icon: '<i class="material-icons">flight_takeoff</i>',
+                effect: 'wingardium-leviosa-effect',
+                description: 'Membuat benda melayang di udara'
+            },
+            'riddikulus': {
+                text: 'RIDDIKULUS',
+                icon: '<i class="material-icons">sentiment_very_satisfied</i>',
+                effect: 'riddikulus-effect',
+                description: 'Mengubah Boggart menjadi sesuatu yang lucu'
+            },
+            'accio': {
+                text: 'ACCIO',
+                icon: '<i class="material-icons">arrow_forward</i>',
+                effect: 'accio-effect',
+                description: 'Memanggil objek dari kejauhan'
+            },
+            'protego': {
+                text: 'PROTEGO',
+                icon: '<i class="material-icons">shield</i>',
+                effect: 'protego-effect',
+                description: 'Menciptakan perisai pelindung'
+            },
+            'stupefy': {
+                text: 'STUPEFY',
+                icon: '<i class="material-icons">star</i>',
+                effect: 'stupefy-effect',
+                description: 'Membuat target pingsan',
+                action: () => stunSlime()
+            }
+        };
+        
+        // Fungsi untuk mengaktifkan tema terang
+        function enableLightTheme() {
+            body.classList.remove('dark-theme');
+            body.style.backgroundColor = 'rgba(255, 253, 231, 0.95)';
+            setTimeout(() => {
+                body.style.backgroundColor = '';
+            }, 2000);
+        }
+        
+        // Fungsi untuk mengaktifkan tema gelap
+        function enableDarkTheme() {
+            body.classList.add('dark-theme');
+            body.style.backgroundColor = 'rgba(20, 0, 0, 0.95)';
+            setTimeout(() => {
+                body.style.backgroundColor = '';
+            }, 2000);
+        }
+        
+        // Fungsi untuk membuat efek patronus
+        function createPatronus() {
+            // Hapus patronus sebelumnya
+            patronusContainer.innerHTML = '';
+            
+            // Buat 8-12 patronus acak
+            const patronusCount = Math.floor(Math.random() * 5) + 8;
+            
+            for (let i = 0; i < patronusCount; i++) {
+                const patronus = document.createElement('div');
+                patronus.classList.add('patronus');
+                
+                // Pilih hewan acak
+                const animal = patronusAnimals[Math.floor(Math.random() * patronusAnimals.length)];
+                patronus.textContent = animal;
+                
+                // Posisi dan animasi acak
+                const left = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 3 + 6;
+                
+                patronus.style.left = `${left}%`;
+                patronus.style.animationDelay = `${delay}s`;
+                patronus.style.animationDuration = `${duration}s`;
+                
+                patronusContainer.appendChild(patronus);
+            }
+            
+            // Hapus patronus setelah 6 detik
+            setTimeout(() => {
+                patronusContainer.innerHTML = '';
+            }, 6000);
+        }
+        
+        // Fungsi untuk melucuti tongkat
+        function disarmWand() {
+            wand.classList.add('hidden');
+            
+            // Kembalikan tongkat setelah 3 detik
+            setTimeout(() => {
+                wand.classList.remove('hidden');
+            }, 3000);
+        }
+        
+        // Fungsi untuk menyatukan kembali tongkat
+        function summonWand() {
+            wand.classList.remove('hidden');
+            wand.style.animation = 'none';
+            setTimeout(() => {
+                wand.style.animation = '';
+            }, 10);
+        }
+        
+        // Fungsi untuk membuat slime bereaksi
+        function stunSlime() {
+            slimeMochi.classList.add('slime-hit');
+            setTimeout(() => {
+                slimeMochi.classList.remove('slime-hit');
+            }, 500);
+        }
+        
+        // Fungsi untuk melancarkan mantra
+        function castSpell(spellName) {
+            const spell = spellEffects[spellName.toLowerCase()];
+            
+            if (spell) {
+                // Reset animation
+                spellAnimation.classList.remove('active');
+                spellAnimation.className = 'spell-animation';
+                
+                // Apply new effect
+                setTimeout(() => {
+                    spellIcon.innerHTML = spell.icon;
+                    spellText.textContent = spell.text;
+                    spellDescription.textContent = spell.description;
+                    spellAnimation.classList.add(spell.effect, 'active');
+                    
+                    // Jalankan aksi khusus jika ada
+                    if (spell.action) {
+                        spell.action();
+                    }
+                }, 100);
+            } else {
+                spellIcon.innerHTML = '<i class="material-icons">error_outline</i>';
+                spellText.textContent = 'Mantra tidak dikenal!';
+                spellDescription.textContent = 'Coba mantra lain dari daftar.';
+                spellAnimation.className = 'spell-animation';
+                setTimeout(() => {
+                    spellAnimation.classList.add('active');
+                }, 100);
+            }
+        }
+        
+        // Fungsi untuk menampilkan detail karakter
+        function showCharacterDetail(characterId) {
+            const character = characterData[characterId];
+            
+            if (character) {
+                detailImage.src = character.image;
+                detailName.textContent = character.name;
+                detailDescription.textContent = character.description;
+                detailRole.textContent = character.role;
+                detailFacts.textContent = character.facts;
+                
+                characterModal.style.display = 'flex';
+            }
+        }
+        
+        // Event listeners
+        castSpellButton.addEventListener('click', () => {
+            castSpell(spellInput.value);
+        });
+        
+        spellInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                castSpell(spellInput.value);
+            }
+        });
+        
+        // Event listeners untuk opsi mantra
+        spellOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const spell = option.getAttribute('data-spell');
+                spellInput.value = spell;
+                castSpell(spell);
+            });
+        });
+        
+        // Event listener untuk slime mochi
+        slimeMochi.addEventListener('click', () => {
+            const spell = slimeMochi.getAttribute('data-spell');
+            spellInput.value = spell;
+            castSpell(spell);
+            
+            // Animasi slime saat diklik
+            slimeMochi.classList.add('slime-hit');
+            setTimeout(() => {
+                slimeMochi.classList.remove('slime-hit');
+            }, 500);
+        });
+        
+        // Event listener untuk tombol cari (menyatukan tongkat)
+        searchButton.addEventListener('click', () => {
+            summonWand();
+            
+            // Efek visual tambahan
+            searchButton.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                searchButton.style.transform = '';
+            }, 300);
+        });
+        
+        // Event listeners untuk kartu karakter
+        characterCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const characterId = card.getAttribute('data-character');
+                showCharacterDetail(characterId);
+            });
+        });
+        
+        // Event listener untuk menutup modal
+        closeModal.addEventListener('click', () => {
+            characterModal.style.display = 'none';
+        });
+        
+        // Tutup modal saat klik di luar konten
+        characterModal.addEventListener('click', (event) => {
+            if (event.target === characterModal) {
+                characterModal.style.display = 'none';
+            }
+        });
+        
+        // Inisialisasi dengan mantra default
+        castSpell('Lumos');
+    </script>
+</body>
+</html>

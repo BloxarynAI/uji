@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Tugas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f5f7fa 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #42a5f5 0%, #1976d2 100%);
+            color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(66, 165, 245, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .task-card {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(66, 165, 245, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-top: 5px solid #42a5f5;
+        }
+        
+        .task-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(66, 165, 245, 0.25);
+        }
+        
+        .task-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e3f2fd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(66, 165, 245, 0.05);
+        }
+        
+        .subject-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1565c0;
+        }
+        
+        .task-priority {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .priority-high {
+            background-color: rgba(239, 83, 80, 0.15);
+            color: #d32f2f;
+        }
+        
+        .priority-medium {
+            background-color: rgba(255, 167, 38, 0.15);
+            color: #f57c00;
+        }
+        
+        .priority-low {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: #388e3c;
+        }
+        
+        .task-body {
+            padding: 20px;
+        }
+        
+        .task-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0d47a1;
+            margin-bottom: 15px;
+        }
+        
+        .task-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .meta-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #e3f2fd;
+            color: #42a5f5;
+            font-size: 0.9rem;
+        }
+        
+        .meta-label {
+            font-weight: 500;
+            color: #4a5568;
+            min-width: 120px;
+        }
+        
+        .meta-value {
+            color: #2d3748;
+        }
+        
+        .task-due-date {
+            background-color: rgba(66, 165, 245, 0.1);
+            color: #1565c0;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .task-status {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .status-completed {
+            background-color: rgba(76, 175, 80, 0.15);
+            color: #388e3c;
+        }
+        
+        .status-pending {
+            background-color: rgba(239, 83, 80, 0.15);
+            color: #d32f2f;
+        }
+        
+        .status-in-progress {
+            background-color: rgba(255, 167, 38, 0.15);
+            color: #f57c00;
+        }
+        
+        .click-instruction {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(66, 165, 245, 0.1);
+            border-radius: 8px;
+            color: #1565c0;
+            font-weight: 500;
+            border: 1px solid rgba(66, 165, 245, 0.2);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: auto;
+            padding: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .info-box {
+            background-color: rgba(66, 165, 245, 0.1);
+            border-left: 4px solid #42a5f5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .info-title {
+            font-weight: 600;
+            color: #1565c0;
+            margin-bottom: 5px;
+        }
+        
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            color: #4a5568;
+        }
+        
+        .filter-btn:hover {
+            background-color: #f7fafc;
+            border-color: #42a5f5;
+        }
+        
+        .filter-btn.active {
+            background-color: #42a5f5;
+            color: white;
+            border-color: #42a5f5;
+        }
+        
+        .task-description {
+            margin-top: 10px;
+            color: #4a5568;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .task-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #e3f2fd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(66, 165, 245, 0.03);
+        }
+        
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        
+        .edit-btn {
+            background-color: rgba(66, 165, 245, 0.1);
+            color: #42a5f5;
+        }
+        
+        .edit-btn:hover {
+            background-color: rgba(66, 165, 245, 0.2);
+        }
+        
+        .delete-btn {
+            background-color: rgba(239, 83, 80, 0.1);
+            color: #d32f2f;
+        }
+        
+        .delete-btn:hover {
+            background-color: rgba(239, 83, 80, 0.2);
+        }
+        
+        .task-date {
+            font-size: 0.8rem;
+            color: #718096;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #718096;
+        }
+        
+        .empty-icon {
+            font-size: 3rem;
+            color: #cbd5e0;
+            margin-bottom: 15px;
+        }
+        
+        .file-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 8px;
+            background-color: rgba(66, 165, 245, 0.1);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #1565c0;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Daftar Tugas</h1>
+            <p class="subtitle">Kelola tugas Anda dengan mudah dan efisien</p>
+        </header>
+        
+        <div class="info-box">
+            <div class="info-title">Informasi:</div>
+            <p>Klik pada kartu tugas untuk membuka detail di halaman terpisah. Setiap tugas membuka file yang berbeda.</p>
+        </div>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterTasks('all')">Semua</button>
+            <button class="filter-btn" onclick="filterTasks('pending')">Belum Selesai</button>
+            <button class="filter-btn" onclick="filterTasks('completed')">Selesai</button>
+            <button class="filter-btn" onclick="filterTasks('high')">Prioritas Tinggi</button>
+        </div>
+        
+        <div class="task-grid">
+            <!-- Kartu Tugas 1 - Tugas Membuat Cerita Fantasi -->
+            <div class="task-card" data-status="pending" data-priority="high" onclick="openTaskDetail('reff.html')">
+                <div class="task-header">
+                    <div class="subject-name">Bahasa Indonesia</div>
+                    <div class="task-priority priority-high">Tinggi</div>
+                </div>
+                <div class="task-body">
+                    <div class="task-title">Tugas Kelompok Membuat Cerita Fantasi
+                        <span class="file-indicator">reff.html</span>
+                    </div>
+                    <div class="task-description">
+                        Membuat cerita fantasi dengan minimal 3 halaman, lengkap dengan tokoh, latar, dan alur cerita yang menarik. Cerita harus mengandung unsur-unsur fantasi seperti makhluk mitologi, dunia imajinatif, atau keajaiban.
+                    </div>
+                    <div class="task-meta">
+                        <div class="meta-item">
+                            <div class="meta-icon"><span class="material-icons">event</span></div>
+                            <div class="meta-label">Tanggal:</div>
+                            <div class="task-due-date">25 Oktober 2025</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-icon"><span class="material-icons">cloud_upload</span></div>
+                            <div class="meta-label">Dikumpulkan:</div>
+                            <div class="meta-value">27 Oktober 2025</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-icon"><span class="material-icons">schedule</span></div>
+                            <div class="meta-label">Status:</div>
+                            <div class="task-status status-pending">Belum Selesai</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-footer">
+                    <div class="task-date">Dibuat: 25 Oktober 2025</div>
+                    <div class="task-actions">
+                        <button class="action-btn edit-btn" onclick="event.stopPropagation(); editTask(2)">
+                            <span class="material-icons" style="font-size: 14px;">edit</span> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="event.stopPropagation(); deleteTask(2)">
+                            <span class="material-icons" style="font-size: 14px;">delete</span> Hapus
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Kartu Tugas 2 - Tugas Membuat Teks Prosedur -->
+            <div class="task-card" data-status="pending" data-priority="medium" onclick="openTaskDetail('chat.html')">
+                <div class="task-header">
+                    <div class="subject-name">Bahasa Indonesia</div>
+                    <div class="task-priority priority-medium">Sedang</div>
+                </div>
+                <div class="task-body">
+                    <div class="task-title">Membuat Teks Prosedur
+                        <span class="file-indicator">chat.html</span>
+                    </div>
+                    <div class="task-description">
+                        Membuat teks prosedur untuk membuat atau melakukan sesuatu. Teks harus memiliki struktur yang jelas dengan langkah-langkah yang mudah diikuti.
+                    </div>
+                    <div class="task-meta">
+                        <div class="meta-item">
+                            <div class="meta-icon"><span class="material-icons">event</span></div>
+                            <div class="meta-label">Tanggal:</div>
+                            <div class="task-due-date">25 Oktober 2025</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-icon"><span class="material-icons">cloud_upload</span></div>
+                            <div class="meta-label">Dikumpulkan:</div>
+                            <div class="meta-value">27 Oktober 2025</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-icon"><span class="material-icons">schedule</span></div>
+                            <div class="meta-label">Status:</div>
+                            <div class="task-status status-in-progress">Dalam Proses</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-footer">
+                    <div class="task-date">Dibuat: 25 Oktober 2025</div>
+                    <div class="task-actions">
+                        <button class="action-btn edit-btn" onclick="event.stopPropagation(); editTask(1)">
+                            <span class="material-icons" style="font-size: 14px;">edit</span> Edit
+                        </button>
+                        <button class="action-btn delete-btn" onclick="event.stopPropagation(); deleteTask(1)">
+                            <span class="material-icons" style="font-size: 14px;">delete</span> Hapus
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="click-instruction">
+            <span class="material-icons" style="vertical-align: middle; margin-right: 5px;">info</span>
+            Klik pada kartu tugas untuk melihat detail lengkap di halaman terpisah
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Aplikasi Daftar Tugas</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fungsi untuk membuka detail tugas di file terpisah
+        function openTaskDetail(fileName) {
+            // Navigasi ke file yang sesuai
+            window.location.href = fileName;
+        }
+        
+        // Fungsi untuk memfilter tugas berdasarkan status atau prioritas
+        function filterTasks(filter) {
+            const taskCards = document.querySelectorAll('.task-card');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Update status tombol filter
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(filter)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Tampilkan semua kartu jika filter "all"
+            if (filter === 'all') {
+                taskCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                return;
+            }
+            
+            // Filter kartu berdasarkan kriteria
+            taskCards.forEach(card => {
+                if (filter === 'pending' && card.dataset.status === 'pending') {
+                    card.style.display = 'block';
+                } else if (filter === 'completed' && card.dataset.status === 'completed') {
+                    card.style.display = 'block';
+                } else if (filter === 'high' && card.dataset.priority === 'high') {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Fungsi untuk mengedit tugas
+        function editTask(taskId) {
+            alert(`Edit tugas dengan ID: ${taskId}`);
+            // Di sini biasanya akan membuka modal atau form edit
+        }
+        
+        // Fungsi untuk menghapus tugas
+        function deleteTask(taskId) {
+            if (confirm(`Apakah Anda yakin ingin menghapus tugas ini?`)) {
+                alert(`Tugas dengan ID: ${taskId} telah dihapus`);
+                // Di sini biasanya akan menghapus tugas dari database
+            }
+        }
+    </script>
+</body>
+</html>
